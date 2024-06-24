@@ -1,0 +1,27 @@
+use locadora;
+
+-- Todos os clientes armazenados no sistema:
+select * from cliente;
+
+-- Exiba os veículos que tenham final 3 no número da placa
+select placa from veiculo where placa like '%3';
+
+-- Mostre os clientes que residem no RS e que não possuam telefone
+select nome, telefone, uf_cnh from cliente where telefone IS NULL AND uf_cnh='RS';
+
+-- Exiba o código dos clientes que alugaram veículos por mais de 90 dias.
+-- select id_cliente.a, duracao.b from cliente a, contrato_aluguel b where duracao.b>90;
+
+-- Quantos veículos há cadastrados no sistema
+select count(placa) from veiculo;
+-- Gabarito: select * from veiculo;
+
+-- Mostre o veículo alugado por Alexandre Zamberlan.
+-- select * from contrato_aluguel;
+-- select * from cliente;
+-- Gabarito: select veiculo.placa, cliente.nome from veiculo, cliente;
+select veiculo.placa, cliente.nome from veiculo, cliente where cliente.nome = "Alexandre Zamberlan";
+select veiculo.placa, cliente.nome from veiculo, cliente, contrato_aluguel where contrato_aluguel.id_cliente = cliente.id_cliente AND cliente.nome = "Alexandre Zamberlan";
+
+-- Mostre os clientes e os escritórios associados no contrato de aluguel.
+select DISTINCT cliente.nome, escritorio.nome from cliente, escritorio, contrato_aluguel where cliente.id_cliente = contrato_aluguel.id_cliente AND escritorio.id_escritorio = contrato_aluguel.id_escritorio;
